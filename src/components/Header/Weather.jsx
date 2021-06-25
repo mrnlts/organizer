@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import icons from '../data/icons';
+import icons from '../../data/icons';
 import AirQualityScale from './AirQualityScale';
 
 const Weather = props => {
