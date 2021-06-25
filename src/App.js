@@ -1,36 +1,35 @@
-import './App.css';
 import axios from 'axios';
 import { Component } from 'react';
+import Weather from './components/Weather';
 require('dotenv').config();
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      pollution: { }
+      pollution: {},
+      temp: 0,
+      weather: ''
     }
   }
+
   componentDidMount() {
     axios.get(`http://api.openweathermap.org/data/2.5/air_pollution?lat=41.38879&lon=2.15899&appid=${process.env.REACT_APP_WEATHER_KEY}`)
-      .then(res => this.setState({ pollution: { index: res.data.list[0].main.aqi } })); 
+      .then(res => this.setState({ pollution: { index: res.data.list[0].main.aqi } }));
+    axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=41.38879&lon=2.15899&exclude=minutely,hourly,daily,alerts&appid=${process.env.REACT_APP_WEATHER_KEY}`)
+      .then(res => {
+        const forecast = res.data;
+        const temp = forecast.current.temp;
+        const weather = forecast.current.weather[0].main;
+        this.setState({ temp, weather });
+      })
   }
 
   render() {
-    const { pollution } = this.state;
+    const { pollution, temp, weather } = this.state;
     return (
-      <div>
-        Home page
-        <div className="border border-gray-900 w-40 rounded-md p-3">
-          <p>Barcelona</p>
-          <p className="pb-2">Pollution: </p>
-          <div className="flex">
-            <div className={`bg-blue-500 h-5 w-5 rounded-full ${ pollution.index === 1 && 'border-4' } border-gray-900`} />
-            <div className={`bg-green-600 h-5 w-5 rounded-full ${ pollution.index === 2 && 'border-4' } border-gray-900`} />
-            <div className={`bg-yellow-300 h-5 w-5 rounded-full ${ pollution.index === 3 && 'border-4' } border-gray-900`} />
-            <div className={`bg-yellow-600 h-5 w-5 rounded-full ${ pollution.index === 4 && 'border-4' } border-gray-900`} />
-            <div className={`bg-red-500 h-5 w-5 rounded-full ${ pollution.index === 5 && 'border-4' } border-gray-900`} />
-            </div>
-          </div>
+      <div className="p-5 flex">
+        <Weather pollution={pollution} temp={temp} weather={weather} />
       </div>
     )
   }
