@@ -33,7 +33,7 @@ class App extends Component {
   render() {
     const { pollution, temp, weather, dailyJoke, dailyPoem } = this.state;
     return (
-      <div>
+      <div className="app">
         <Header pollution={pollution} temp={temp} weather={weather} joke={dailyJoke} poem={dailyPoem} />
       </div>
     )

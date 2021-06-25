@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import icons from '../data/icons';
+import AirQualityScale from './AirQualityScale';
 
 const Weather = props => {
   const { pollution, temp, weather } = props;
@@ -9,20 +10,14 @@ const Weather = props => {
     return icon ? <FontAwesomeIcon icon={icon.icon} /> : '';
   };
   return (
-    <div className="border border-gray-900 w-40 rounded-md p-3 mr-5">
-      <p className="text-2xl">Barcelona</p>
-      <p>{new Date(Date.now()).toLocaleString('en-US', options)} </p>
+    <div className="w-40 h-40 rounded-md p-3 mr-5 mb-5 bg-white xl:w-80 xl:flex xl:flex-wrap xl:items-center xl:justify-center">
+      <p className="text-2xl xl:pr-3">Barcelona</p>
+      <p className="xl:pr-3">{new Date(Date.now()).toLocaleString('en-US', options)} </p>
       <p>
         {Math.round(temp - 273.15)} º {currentIcon()}
       </p>
-      <p className="pb-2">Air quality: </p>
-      <div className="flex">
-        <div className={`bg-blue-500 h-5 w-5 rounded-full ${pollution.index === 1 && 'border-4'} border-gray-900`} />
-        <div className={`bg-green-600 h-5 w-5 rounded-full ${pollution.index === 2 && 'border-4'} border-gray-900`} />
-        <div className={`bg-yellow-300 h-5 w-5 rounded-full ${pollution.index === 3 && 'border-4'} border-gray-900`} />
-        <div className={`bg-yellow-600 h-5 w-5 rounded-full ${pollution.index === 4 && 'border-4'} border-gray-900`} />
-        <div className={`bg-red-500 h-5 w-5 rounded-full ${pollution.index === 5 && 'border-4'} border-gray-900`} />
-      </div>
+      <p className="pb-2 xl:pr-3">Air quality: </p>
+      <AirQualityScale pollution={pollution.index} />
     </div>
   );
 };

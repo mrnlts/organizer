@@ -1,17 +1,17 @@
 const DailyPoem = props => {
   const { poem } = props;
   return (
-    <div className="border border-gray-900 w-80 h-40 rounded-md p-3 mr-5 flex flex-col justify-center">
+    <div className="w-40 md:w-80 xl:w-96 h-40 rounded-md p-3 mr-5 mb-5 flex flex-col justify-center bg-white">
       {poem ? (
         <div className="overflow-y-scroll">
-          <div className="text-xs pb-3">
-            {poem.lines.slice(0, 4).map((line, index) => (
+          <p className="text-xs xl:text-sm italic pb-3">
+            {poem.author}, {poem.title}{' '}
+          </p>
+          <div className="text-xs xl:text-sm">
+            {poem.lines.map((line, index) => (
               <p key={index}>{line}</p>
             ))}
           </div>
-          <p className="text-xs italic">
-            {poem.author}, {poem.title}{' '}
-          </p>
         </div>
       ) : (
         'Loading'
