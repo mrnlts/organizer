@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Component } from 'react';
-import DailyJoke from './components/DailyJoke';
-import DailyPoem from './components/DailyPoem';
-import Weather from './components/Weather';
+import Header from './components/Header';
 require('dotenv').config();
 
 class App extends Component {
@@ -35,10 +33,8 @@ class App extends Component {
   render() {
     const { pollution, temp, weather, dailyJoke, dailyPoem } = this.state;
     return (
-      <div className="p-5 flex">
-        <Weather pollution={pollution} temp={temp} weather={weather} />
-        <DailyJoke joke={dailyJoke} />
-        <DailyPoem poem={dailyPoem} />
+      <div>
+        <Header pollution={pollution} temp={temp} weather={weather} joke={dailyJoke} poem={dailyPoem} />
       </div>
     )
   }
