@@ -11,9 +11,9 @@ class Tasks extends Component {
   handleChange = e => this.setState({ currentTask: e.target.value });
   handleClick = () => {
     const { todaysTasks, currentTask } = this.state;
-    const oldTasks = [...todaysTasks];
+    let oldTasks = [...todaysTasks];
     oldTasks.push(currentTask);
-    this.setState({ todaysTasks: oldTasks });
+    currentTask !== '' ? this.setState({ todaysTasks: oldTasks, currentTask: '' }) : this.setState({ currentTask });
   };
   render() {
     const { todaysTasks, currentTask } = this.state;

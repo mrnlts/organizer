@@ -25,22 +25,35 @@ class Calculator extends Component {
       : //Else
         '';
   };
+
   handleCalculus = () => {
     const { currentValues } = this.state;
     let calcArguments = currentValues.split('+');
     if (calcArguments.length > 1) {
-      this.setState({ result: Number(calcArguments[0]) + Number(calcArguments[1]) });
+      this.setState({
+        result: parseFloat(Number(calcArguments[0]) + Number(calcArguments[1])).toFixed(2),
+        currentValues: '',
+      });
     } else {
       calcArguments = calcArguments.toString().split('-');
       if (calcArguments.length > 1) {
-        this.setState({ result: Number(calcArguments[0]) - Number(calcArguments[1]) });
+        this.setState({
+          result: parseFloat(Number(calcArguments[0]) - Number(calcArguments[1])).toFixed(2),
+          currentValues: '',
+        });
       } else {
         calcArguments = calcArguments.toString().split('*');
         if (calcArguments.length > 1) {
-          this.setState({ result: Number(calcArguments[0]) * Number(calcArguments[1]) });
+          this.setState({
+            result: parseFloat(Number(calcArguments[0]) * Number(calcArguments[1])).toFixed(2),
+            currentValues: '',
+          });
         } else {
           calcArguments = calcArguments.toString().split('/');
-          this.setState({ result: Number(calcArguments[0]) / Number(calcArguments[1]) });
+          this.setState({
+            result: parseFloat(Number(calcArguments[0]) / Number(calcArguments[1])).toFixed(2),
+            currentValues: '',
+          });
         }
       }
     }
