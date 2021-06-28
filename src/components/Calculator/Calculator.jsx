@@ -11,24 +11,41 @@ class Calculator extends Component {
     };
   }
   handleChange = e => {
-    this.setState({ currentValues: e.target.value });
+    const newValue = e.target.value.slice(e.target.value.length - 1);
+    const operators = ['+', '-', '*', '/'];
+    //It's a number
+    return !isNaN(parseInt(newValue))
+      ? this.setState({ currentValues: e.target.value })
+      : //It's an operator
+      operators.includes(newValue)
+      ? this.setState({ currentValues: e.target.value })
+      : //It's deleting
+      e.target.value === ''
+      ? this.setState({ currentValues: '' })
+      : //Else
+        '';
   };
-  handleClick = e => {
+  handleCalculus = () => {
     const { currentValues } = this.state;
-    const oldValues = [...currentValues];
-    oldValues.push(
-      e.target.id === 'plus'
-        ? '+'
-        : e.target.id === 'minus'
-        ? '-'
-        : e.target.id === 'times'
-        ? '*'
-        : e.target.id === 'divide'
-        ? '/'
-        : null,
-    );
-    this.setState({ currentValues: oldValues });
+    let calcArguments = currentValues.split('+');
+    if (calcArguments.length > 1) {
+      this.setState({ result: Number(calcArguments[0]) + Number(calcArguments[1]) });
+    } else {
+      calcArguments = calcArguments.toString().split('-');
+      if (calcArguments.length > 1) {
+        this.setState({ result: Number(calcArguments[0]) - Number(calcArguments[1]) });
+      } else {
+        calcArguments = calcArguments.toString().split('*');
+        if (calcArguments.length > 1) {
+          this.setState({ result: Number(calcArguments[0]) * Number(calcArguments[1]) });
+        } else {
+          calcArguments = calcArguments.toString().split('/');
+          this.setState({ result: Number(calcArguments[0]) / Number(calcArguments[1]) });
+        }
+      }
+    }
   };
+
   render() {
     const { currentValues, result } = this.state;
     return (
@@ -54,8 +71,10 @@ class Calculator extends Component {
           placeholder="Gimme some data"
           onChange={this.handleChange}
         />
-        <button className="bg-white text-gray-500 rounded-xl p-2">Do the math!</button>
-        <p className={!result && 'hidden'}>Result: {result}</p>
+        <button className="bg-white text-gray-500 rounded-xl p-2" onClick={this.handleCalculus}>
+          Do the math!
+        </button>
+        <p className={`relative left-40 -top-8 ${!result && 'hidden'}`}>Result: {result}</p>
       </div>
     );
   }
