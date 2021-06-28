@@ -22,8 +22,8 @@ class Tasks extends Component {
         <div className="bg-gray-200 rounded-md w-40 sm:w-80 lg:w-1/2 h-40 mt-5 mr-5 lg:mr-0 p-3">
           <p className="pb-3">Tasks for the day</p>
           <ul className="text-gray-500 list-disc pl-5 overflow-y-scroll h-24 lg:flex lg:flex-wrap">
-            {todaysTasks.map(task => (
-              <li className="sm:w-40 lg:w-56">
+            {todaysTasks.map((task, index) => (
+              <li key={index} className="sm:w-40 lg:w-56">
                 {task} <input type="checkbox" />{' '}
               </li>
             ))}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Component } from 'react';
+import Calculator from './components/Calculator/Calculator';
 import Header from './components/Header/Header';
 import Tasks from './components/Tasks/Tasks';
 require('dotenv').config();
@@ -37,6 +38,7 @@ class App extends Component {
       <div className="app flex flex-col items-center box-border">
         <Header pollution={pollution} temp={temp} weather={weather} joke={dailyJoke} poem={dailyPoem} />
         <Tasks />
+        <Calculator />
       </div>
     )
   }
